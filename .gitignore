@@ -4,3 +4,15 @@ __pycache__
 
 # Pycharm
 .idea
+
+# Eclipse
+.metadata
+.settings
+.project
+.classpath
+.launch
+*.tmp
+*.bak
+*.swp
+bin/
+tmp/
