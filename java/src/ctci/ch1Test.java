@@ -1,4 +1,4 @@
-package ch1_java;
+package ctci;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,10 +1,11 @@
-package ch1_java;
+package ctci;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
 public class ch1
 {
+    // #1
 	public static boolean IsUniqueNoSpace(String testString)
 	{
 		/*
@@ -47,10 +48,11 @@ public class ch1
 		return testString.length() == charSet.size();
 	}
 
+	// #2
 	public static boolean CheckPermutation(String testStringA, String testStringB)
 	{
 		/*
-		 * Time complexity: O(nlogn) for Arrays.sort (QuickSort)
+		 * Time complexity: O(n log n) for Arrays.sort (QuickSort)
 		 * Space complexity: O(n) with respect to the string length for char arrays and for Arrays.sort
 		 */
 		if ((testStringA.length() != testStringB.length()) || (testStringA.length() == 0))
@@ -71,6 +73,48 @@ public class ch1
 			}
 		}
 		return true;
+	}
+
+	// #3 TODO
+	public static String URLify(String inputString)
+	{
+        return inputString;
+	}
+
+	// #4 TOOD
+	public static boolean IsPermutationPalindrome(String inputString)
+	{
+	    return false;
+	}
+
+	// #5 TODO
+	public static boolean OneAway(String inputString)
+	{
+	    return false;
+	}
+
+	// #6 TODO
+	public static String StringCompression(String inputString)
+	{
+	    return inputString;
+	}
+
+	// #7 TODO
+	public static String[][] RotateMatrix(String[][] inputMatrix)
+	{
+	    return inputMatrix;
+	}
+
+	// #8 TODO
+	public static String[][] ZeroMatrix(String[][] inputMatrix)
+	{
+	    return inputMatrix;
+	}
+
+	// #9 TODO
+	public static String StringRotation(String inputString)
+	{
+	    return inputString;
 	}
 }
 

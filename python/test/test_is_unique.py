@@ -1,7 +1,7 @@
 import unittest
 
-from ch1_python.src.functions import is_unique
-from ch1_python.src.functions import is_permutation
+from python.src.functions import is_unique
+from python.src.functions import is_permutation
 
 
 #1
