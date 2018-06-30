@@ -1,7 +1,6 @@
 package ctci;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 class ch1Test 
@@ -50,5 +49,33 @@ class ch1Test
         String testStringA = "abcd";
         String testStringB = "1234";
         assertFalse(ch1.CheckPermutation(testStringA, testStringB));
+    }
+
+    @Test
+    void testIsPermutationPalindromeTrueEvenLength()
+    {
+        String testString = "aabbcc";
+        assertTrue(ch1.IsPermutationPalindrome(testString));
+    }
+
+    @Test
+    void testIsPermutationPalindromeTrueOddLength()
+    {
+        String testString = "aabbccd";
+        assertTrue(ch1.IsPermutationPalindrome(testString));
+    }
+
+    @Test
+    void testIsPermutationPalindromeFalseEvenLength()
+    {
+        String testString = "abcdef";
+        assertFalse(ch1.IsPermutationPalindrome(testString));
+    }
+
+    @Test
+    void testIsPermutationPalindromeFalseOddLength()
+    {
+        String testString = "abcdefg";
+        assertFalse(ch1.IsPermutationPalindrome(testString));
     }
 }
