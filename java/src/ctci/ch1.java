@@ -141,10 +141,22 @@ public class ch1
 	    return inputMatrix;
 	}
 
-	// #9 TODO
-	public static String StringRotation(String inputString)
+	// #9
+	public static boolean StringRotation(String originalString, String testString)
 	{
-	    return inputString;
+	    /*
+	     * Time complexity: O(n^2) using string concatenation or O(n) using StringBuffer with respect to the size of testString
+	     * Space complexity: O(n) with respect to the size of testString
+	     *
+	     * isSubstring is not provided so this uses String.contains in its place
+	     */
+	    if (originalString.length() != testString.length() || originalString.length() == 0)
+	    {
+	        return false;
+	    }
+	    StringBuffer buffer = new StringBuffer(testString.length() * 2);
+	    String doubleTestString = buffer.append(testString).append(testString).toString();
+//	    String doubleTestString = testString + testString;
+	    return doubleTestString.contains(originalString);
 	}
 }
-

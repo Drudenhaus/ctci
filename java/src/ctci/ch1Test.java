@@ -78,4 +78,36 @@ class ch1Test
         String testString = "abcdefg";
         assertFalse(ch1.IsPermutationPalindrome(testString));
     }
+
+    @Test
+    void testStringRotationTrue()
+    {
+        String originalString = "helloworld";
+        String rotatedString = "worldhello";
+        assertTrue(ch1.StringRotation(originalString, rotatedString));
+    }
+
+    @Test
+    void testStringRotationFalse()
+    {
+        String originalString = "helloworld";
+        String rotatedString = "hellow0rld";
+        assertFalse(ch1.StringRotation(originalString, rotatedString));
+    }
+
+    @Test
+    void testStringRotationEmptyFalse()
+    {
+        String originalString = "";
+        String rotatedString = "";
+        assertFalse(ch1.StringRotation(originalString, rotatedString));
+    }
+
+    @Test
+    void testStringRotationDifferentSizesFalse()
+    {
+        String originalString = "helloworld";
+        String rotatedString = "worldhelloto";
+        assertFalse(ch1.StringRotation(originalString, rotatedString));
+    }
 }
