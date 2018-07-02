@@ -129,10 +129,66 @@ public class ch1
 	    return inputString;
 	}
 
-	// #7 TODO
-	public static String[][] RotateMatrix(String[][] inputMatrix)
+	// #7
+	public static boolean RotateMatrix(int[][] inputMatrix)
 	{
-	    return inputMatrix;
+	    /*
+	     * Time complexity: O(N^2) with respect to the length of a dimension of the matrix
+	     * Space complexity: O(1) as this is an in-place operation
+	     */
+	    int numRows = inputMatrix.length;
+	    // Verify the matrix is non-empty and is NxN
+	    if (inputMatrix[0].length == 0)
+	    {
+	        return false;
+	    }
+	    else
+	    {
+	        for (int i = 0; i < numRows; i++)
+	        {
+	            if (inputMatrix[i].length != numRows)
+	            {
+	                return false;
+	            }
+	        }
+	    }
+
+	    // Perform in-place rotation
+	    // Work from the outside to the inside
+	    for (int layer = 0; layer < numRows / 2; layer++)
+	    {
+	        int startColumn = layer;
+	        int endColumn = numRows - 1 - layer;
+	        // Top to left
+	        for (int column = startColumn; column < endColumn; column++)
+	        {
+	            int targetColumn = endColumn;
+	            int targetRow = 0 + column;
+	            int valueAtTarget = inputMatrix[targetRow][targetColumn];
+	            inputMatrix[targetRow][targetColumn] = inputMatrix[layer][column];
+	            inputMatrix[layer][column] = valueAtTarget;
+	        }
+
+	        // Top to bottom
+	        for (int column = layer, targetColumn = endColumn; column < endColumn; column++, targetColumn--)
+	        {
+	            int targetRow = endColumn;
+	            int valueAtTarget = inputMatrix[targetRow][targetColumn];
+	            inputMatrix[targetRow][targetColumn] = inputMatrix[layer][column];
+	            inputMatrix[layer][column] = valueAtTarget;
+	        }
+
+	        // Top to right
+	        for (int column = startColumn; column < endColumn; column++)
+	        {
+	            int targetColumn = layer;
+	            int targetRow = numRows - column - 1;
+	            int valueAtTarget = inputMatrix[targetRow][targetColumn];
+	            inputMatrix[targetRow][targetColumn] = inputMatrix[layer][column];
+	            inputMatrix[layer][column] = valueAtTarget;
+	        }
+	    }
+        return true;
 	}
 
 	// #8 TODO
