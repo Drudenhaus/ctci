@@ -79,6 +79,51 @@ class ch1Test
         assertFalse(ch1.IsPermutationPalindrome(testString));
     }
 
+//    @Test
+    void testZeroMatrixSingleZero()
+    {
+        int[][] originalMatrix = {{0, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        int[][] expectedMatrix = {{0, 0, 0}, {0, 5, 6}, {0, 8, 9}};
+        assertTrue(ch1.ZeroMatrix(originalMatrix));
+        assertArrayEquals(expectedMatrix, originalMatrix);
+    }
+
+    @Test
+    void testZeroMatrixTwoZeroes()
+    {
+        int[][] originalMatrix = {{0, 2, 3}, {4, 5, 6}, {7, 8, 0}};
+        int[][] expectedMatrix = {{0, 0, 0}, {0, 5, 0}, {0, 0, 0}};
+        assertTrue(ch1.ZeroMatrix(originalMatrix));
+        assertArrayEquals(expectedMatrix, originalMatrix);
+    }
+
+    @Test
+    void testZeroMatrixThreeZeroes()
+    {
+        int[][] originalMatrix = {{0, 0, 0}, {4, 5, 6}, {7, 8, 0}};
+        int[][] expectedMatrix = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+        assertTrue(ch1.ZeroMatrix(originalMatrix));
+        assertArrayEquals(expectedMatrix, originalMatrix);
+    }
+
+    @Test
+    void testZeroMatrixEmpty()
+    {
+        int[][] originalMatrix = {{}};
+        int[][] expectedMatrix = {{}};
+        assertFalse(ch1.ZeroMatrix(originalMatrix));
+        assertArrayEquals(expectedMatrix, originalMatrix);
+    }
+
+    @Test
+    void testZeroMatrixNotMxN()
+    {
+        int[][] originalMatrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15}};
+        int[][] expectedMatrix = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15}};
+        assertFalse(ch1.ZeroMatrix(originalMatrix));
+        assertArrayEquals(expectedMatrix, originalMatrix);
+    }
+
     @Test
     void testMatrixRotationEmpty()
     {

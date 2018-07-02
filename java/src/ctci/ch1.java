@@ -3,6 +3,7 @@ package ctci;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class ch1
 {
@@ -191,11 +192,66 @@ public class ch1
         return true;
 	}
 
-	// #8 TODO
-	public static String[][] ZeroMatrix(String[][] inputMatrix)
-	{
-	    return inputMatrix;
-	}
+	// #8
+    public static boolean ZeroMatrix(int[][] inputMatrix)
+    {
+        /*
+         * Time complexity: O(XN) where X and N are the dimensions of the matrix 
+         * Space complexity: O(X + N)
+         */
+
+        // Verify the matrix is non-empty and is MxN
+        if (inputMatrix[0].length == 0)
+        {
+            return false;
+        }
+        else
+        {
+            for (int row = 1; row < inputMatrix.length; row++)
+            {
+                if (inputMatrix[row].length != inputMatrix[0].length)
+                {
+                    return false;
+                }
+            }
+        }
+
+        // Note: there are many other ways of flagging the rows and columns that need to
+        // be zeroed
+        LinkedList<Integer> rows = new LinkedList<Integer>();
+        LinkedList<Integer> columns = new LinkedList<Integer>();
+        for (int row = 0; row < inputMatrix.length; row++)
+        {
+            for (int column = 0; column < inputMatrix[row].length; column++)
+            {
+                if (inputMatrix[row][column] == 0)
+                {
+                    rows.add(row);
+                    columns.add(column);
+                }
+            }
+        }
+
+        // Zero rows
+        for (Integer row : rows)
+        {
+            for (int column = 0; column < inputMatrix[row].length; column++)
+            {
+                inputMatrix[row][column] = 0;
+            }
+        }
+
+        // Zero columns
+        for (Integer column : columns)
+        {
+            for (int row = 0; row < inputMatrix.length; row++)
+            {
+                inputMatrix[row][column] = 0;
+            }
+        }
+
+        return true;
+    }
 
 	// #9
 	public static boolean StringRotation(String originalString, String testString)
