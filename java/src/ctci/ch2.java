@@ -53,9 +53,24 @@ public class ch2
         }
     }
 
-    // #3 TODO
-    public static void DeleteMiddleNode(LinkedListNode inputNode)
+    // #2 TODO
+    public static void ReturnKthToLast(LinkedListNode inputNode)
     {
         
+    }
+
+    // #3
+    public static void DeleteMiddleNode(LinkedListNode inputNode)
+    {
+        /*
+         * Time complexity: O(1)
+         * Space complexity: O(1)
+         */
+        if (inputNode.next != null || inputNode != null)
+        {
+            LinkedListNode nextNode = inputNode.next;
+            inputNode.data = nextNode.data;
+            inputNode.setNext(nextNode.next);
+        }
     }
 }
