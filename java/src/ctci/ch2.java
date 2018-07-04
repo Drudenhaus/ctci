@@ -31,6 +31,28 @@ public class ch2
         }
     }
 
+    public static <T> void DeleteDuplicatesFixedSpace(LinkedListNode inputNode)
+    {
+        /*
+         * Time complexity: O(n^2)
+         * Space complexity: O(1)
+         */
+        LinkedListNode currentNode = inputNode;
+        while (currentNode != null)
+        {
+            LinkedListNode lookAheadNode = currentNode.next;
+            while (lookAheadNode != null)
+            {
+                if (currentNode.data == lookAheadNode.data)
+                {
+                    lookAheadNode.next.setPrevious(lookAheadNode.prev);
+                }
+                lookAheadNode = lookAheadNode.next;
+            }
+            currentNode = currentNode.next;
+        }
+    }
+
     // #3 TODO
     public static void DeleteMiddleNode(LinkedListNode inputNode)
     {

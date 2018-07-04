@@ -22,4 +22,26 @@ class ch2Test
         assertEquals(5, myList.size());
         assertEquals("[1, 2, 3, 4, 5]", myList.toString());
     }
+
+    @Test
+    void testDeleteDuplicatesFixedSpace()
+    {
+        LinkedListNode head = new LinkedListNode(1);
+        LinkedListNode nodeTwo = new LinkedListNode(2);
+        LinkedListNode nodeThree = new LinkedListNode(3);
+        LinkedListNode nodeFour = new LinkedListNode(4);
+        LinkedListNode nodeFive = new LinkedListNode(4);
+        LinkedListNode tail = new LinkedListNode(5);
+
+        head.last = head;
+        head.setNext(nodeTwo);
+        nodeTwo.setNext(nodeThree);
+        nodeThree.setNext(nodeFour);
+        nodeFour.setNext(nodeFive);
+        nodeFive.setNext(tail);
+
+        assertEquals("1->2->3->4->4->5", head.printForward());
+        ch2.DeleteDuplicatesFixedSpace(head);
+        assertEquals("1->2->3->4->5", head.printForward());
+    }
 }
