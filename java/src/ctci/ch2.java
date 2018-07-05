@@ -53,10 +53,60 @@ public class ch2
         }
     }
 
-    // #2 TODO
-    public static void ReturnKthToLast(LinkedListNode inputNode)
+    // #2
+    public static LinkedListNode ReturnKthToLast(LinkedListNode inputNode, int k)
     {
-        
+        /*
+         * Time complexity: O(n)
+         * Space complexity: O(1)
+         */
+        if (inputNode == null || (k != 0 && inputNode.next == null))
+        {
+            return null;
+        }
+
+        int numNodes = 0;
+        LinkedListNode currentNode = inputNode;
+        while (currentNode.next != null)
+        {
+            numNodes++;
+            currentNode = currentNode.next;
+        }
+        currentNode = inputNode;
+        int currentPosition = 0;
+        while (currentPosition < numNodes - k)
+        {
+            currentNode = currentNode.next;
+            currentPosition++;
+        }
+        return currentNode;
+    }
+
+    public static LinkedListNode ReturnKthToLastSlightlyBetter(LinkedListNode inputNode, int k)
+    {
+        /*
+         * Time complexity: O(n)
+         * Space complexity: O(1)
+         * Doesn't require the second traversal that's in ReturnKthToLast
+         */
+        LinkedListNode lookingForEnd = inputNode;
+        LinkedListNode lookingForK = inputNode;
+        for (int i = 0; i < k; i++)
+        {
+            if (lookingForEnd == null)
+            {
+                return null;
+            }
+            lookingForEnd = lookingForEnd.next;
+        }
+
+        while (lookingForEnd.next != null)
+        {
+            lookingForEnd = lookingForEnd.next;
+            lookingForK = lookingForK.next;
+        }
+
+        return lookingForK;
     }
 
     // #3

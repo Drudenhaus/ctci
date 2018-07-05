@@ -45,6 +45,44 @@ class ch2Test
         assertEquals("1->2->3->4->5", head.printForward());
     }
 
+    @Test
+    void testReturnKthToLast()
+    {
+        LinkedListNode head = new LinkedListNode(1); // first/fifth to last
+        LinkedListNode nodeTwo = new LinkedListNode(2); // fourth to last
+        LinkedListNode nodeThree = new LinkedListNode(3); // third to last
+        LinkedListNode nodeFour = new LinkedListNode(4); // second to last
+        LinkedListNode nodeFive = new LinkedListNode(5); // next (first) to last
+        LinkedListNode tail = new LinkedListNode(6); // last
+
+        head.setNext(nodeTwo);
+        nodeTwo.setNext(nodeThree);
+        nodeThree.setNext(nodeFour);
+        nodeFour.setNext(nodeFive);
+        nodeFive.setNext(tail);
+
+        assertEquals(nodeThree, ch2.ReturnKthToLast(head, 3));
+    }
+
+    @Test
+    void testReturnKthToLastSlightlyBetter()
+    {
+        LinkedListNode head = new LinkedListNode(1); // first/fifth to last
+        LinkedListNode nodeTwo = new LinkedListNode(2); // fourth to last
+        LinkedListNode nodeThree = new LinkedListNode(3); // third to last
+        LinkedListNode nodeFour = new LinkedListNode(4); // second to last
+        LinkedListNode nodeFive = new LinkedListNode(5); // next (first) to last
+        LinkedListNode tail = new LinkedListNode(6); // last
+
+        head.setNext(nodeTwo);
+        nodeTwo.setNext(nodeThree);
+        nodeThree.setNext(nodeFour);
+        nodeFour.setNext(nodeFive);
+        nodeFive.setNext(tail);
+
+        assertEquals(nodeThree, ch2.ReturnKthToLastSlightlyBetter(head, 3));
+    }
+
     @Test void testDeleteMiddleNode()
     {
         LinkedListNode head = new LinkedListNode(1);
