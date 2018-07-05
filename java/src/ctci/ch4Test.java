@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import MyLibrary.GraphNode;
+import MyLibrary.BinaryTreeNode;
 
 class ch4Test
 {
@@ -82,5 +83,26 @@ class ch4Test
         nodeThree.addChild(nodeSix);
         nodeThree.addChild(nodeSeven);
         assertFalse(ch4.RouteBetweenNodes(nodeTwo, rootNode));
+    }
+
+    @Test
+    void testMinimalTree()
+    {
+        /*
+         * Looks like this:
+              4
+            2   6
+           1 3 5 7
+         */
+        int[] intArray = {1, 2, 3, 4, 5, 6, 7};
+        BinaryTreeNode rootNode = ch4.MinimalTree(intArray);
+        assertEquals(4, rootNode.data);
+        assertEquals(2, rootNode.left.data);
+        assertEquals(1, rootNode.left.left.data);
+        assertEquals(3, rootNode.left.right.data);
+
+        assertEquals(6, rootNode.right.data);
+        assertEquals(5, rootNode.right.left.data);
+        assertEquals(7, rootNode.right.right.data);
     }
 }

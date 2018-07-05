@@ -3,6 +3,7 @@ package ctci;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import MyLibrary.GraphNode;
+import MyLibrary.BinaryTreeNode;
 
 public class ch4
 {
@@ -39,5 +40,30 @@ public class ch4
             }
         }
         return false;
+    }
+
+    // #2
+    public static BinaryTreeNode MinimalTree(int[] intArray)
+    {
+        /*
+         * Time complexity: O(n) with respect to the length of the array
+         * Space complexity: O(n) for the tree and stack space for recursive calls
+         * Returns the root tree node
+         */
+        return getMinimalTree(intArray, 0, intArray.length - 1);
+    }
+
+    public static BinaryTreeNode getMinimalTree(int[] intArray, int start, int end)
+    {
+        // Base case
+        if (start > end)
+        {
+            return null;
+        }
+        int mid = (start + end) / 2;
+        BinaryTreeNode rootNode = new BinaryTreeNode(intArray[mid]);
+        rootNode.left = getMinimalTree(intArray, start, mid - 1);
+        rootNode.right = getMinimalTree(intArray, mid + 1, end);
+        return rootNode;
     }
 }
