@@ -111,4 +111,45 @@ public class ch4
 
         return listOfDepths;
     }
+
+    // #4 TODO
+    public static boolean CheckBalance(BinaryTreeNode inputNode)
+    {
+        /*
+         * Time complexity: O(n)
+         * Space complexity: 
+         */
+        return false;
+    }
+
+    // #5 
+    public static boolean ValidateBST(BinaryTreeNode inputNode)
+    {
+        /*
+         * Time complexity: O(n) with respect to the number of nodes in the tree
+         * Space complexity: O(log n) stack space for recursive calls
+         */
+        if (inputNode == null)
+        {
+            return false;
+        }
+
+        return ValidateBSTHelper(inputNode.left) && ValidateBSTHelper(inputNode.right);
+    }
+
+    // TODO update to include min/max bounds of the subtree's values
+    public static boolean ValidateBSTHelper(BinaryTreeNode inputNode)
+    {
+        if (inputNode == null)
+        {
+            return true;
+        }
+
+        if ((inputNode.left != null && inputNode.left.data >= inputNode.data) || (inputNode.right != null && inputNode.right.data < inputNode.data))
+        {
+            return false;
+        }
+
+        return ValidateBSTHelper(inputNode.left) && ValidateBSTHelper(inputNode.right);
+    }
 }

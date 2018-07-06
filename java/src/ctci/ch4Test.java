@@ -131,4 +131,52 @@ class ch4Test
         assertEquals(5, currentList.get(2).data);
         assertEquals(7, currentList.get(3).data);
     }
+
+    @Test
+    void testCheckBSTTrue()
+    {
+        int[] intArray = {1, 2, 3, 4, 5, 6, 7};
+        BinaryTreeNode rootNode = ch4.MinimalTree(intArray);
+        assertTrue(ch4.ValidateBST(rootNode));
+    }
+
+    @Test
+    void testCheckBSTInCompleteLevelTrue()
+    {
+        int[] intArray = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        BinaryTreeNode rootNode = ch4.MinimalTree(intArray);
+        assertTrue(ch4.ValidateBST(rootNode));
+    }
+
+    @Test
+    void testValidateBSTFalse()
+    {
+        int[] intArray = {1, 2, 3, 4, 5, 7, 6};
+        BinaryTreeNode rootNode = ch4.MinimalTree(intArray);
+        assertFalse(ch4.ValidateBST(rootNode));
+    }
+
+    @Test
+    void testValidateBSTUIncompleteLevelFalse()
+    {
+        int[] intArray = {1, 2, 3, 4, 5, 7, 6, -1, 5};
+        BinaryTreeNode rootNode = ch4.MinimalTree(intArray);
+        assertFalse(ch4.ValidateBST(rootNode));
+    }
+
+    @Test
+    void testValidateBSTURightChildOfLeftGreaterThanRootFalse()
+    {
+        /*
+         * Looks like this:
+                4
+            2       6
+           1 3     5 7
+              10 <- bad node placement
+         */
+        int[] intArray = {1, 2, 3, 4, 5, 6, 7};
+        BinaryTreeNode rootNode = ch4.MinimalTree(intArray);
+        rootNode.left.right.right = new BinaryTreeNode(10);
+        assertFalse(ch4.ValidateBST(rootNode));
+    }
 }
