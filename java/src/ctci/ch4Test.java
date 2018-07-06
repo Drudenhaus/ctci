@@ -1,6 +1,9 @@
 package ctci;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.LinkedList;
+
 import org.junit.jupiter.api.Test;
 
 import MyLibrary.GraphNode;
@@ -104,5 +107,28 @@ class ch4Test
         assertEquals(6, rootNode.right.data);
         assertEquals(5, rootNode.right.left.data);
         assertEquals(7, rootNode.right.right.data);
+    }
+
+    @Test
+    void testListOfDepths()
+    {
+        int[] intArray = {1, 2, 3, 4, 5, 6, 7};
+        BinaryTreeNode rootNode = ch4.MinimalTree(intArray);
+        LinkedList<LinkedList<BinaryTreeNode>> listOfDepths = ch4.ListOfDepths(rootNode);
+        assertEquals(3, listOfDepths.size());
+
+        // TODO there is surely a more elegant way to test this if I want to spend actual brain power on testing
+        LinkedList<BinaryTreeNode> currentList = listOfDepths.getFirst();
+        assertEquals(4, currentList.getFirst().data);
+
+        currentList = listOfDepths.get(1);
+        assertEquals(2, currentList.getFirst().data);
+        assertEquals(6, currentList.get(1).data);
+
+        currentList = listOfDepths.get(2);
+        assertEquals(1, currentList.getFirst().data);
+        assertEquals(3, currentList.get(1).data);
+        assertEquals(5, currentList.get(2).data);
+        assertEquals(7, currentList.get(3).data);
     }
 }

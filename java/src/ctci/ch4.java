@@ -1,5 +1,6 @@
 package ctci;
 
+import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import MyLibrary.GraphNode;
@@ -65,5 +66,49 @@ public class ch4
         rootNode.left = getMinimalTree(intArray, start, mid - 1);
         rootNode.right = getMinimalTree(intArray, mid + 1, end);
         return rootNode;
+    }
+
+    // #3
+    public static LinkedList<LinkedList<BinaryTreeNode>> ListOfDepths(BinaryTreeNode inputNode)
+    {
+        /*
+         * Time complexity: O(n) with respect to the number of nodes in the tree
+         * Space complexity: O(n)
+         */
+        if (inputNode == null)
+        {
+            return null;
+        }
+
+        LinkedList<LinkedList<BinaryTreeNode>> listOfDepths = new LinkedList<LinkedList<BinaryTreeNode>>();
+        LinkedList<BinaryTreeNode> currentLevel = new LinkedList<BinaryTreeNode>();
+        currentLevel.add(inputNode);
+        listOfDepths.add(currentLevel);
+        LinkedList<BinaryTreeNode> lastLevel = currentLevel;
+        while (true)
+        {
+            currentLevel = new LinkedList<BinaryTreeNode>();
+            for (BinaryTreeNode currentNode : lastLevel)
+            {
+                if (currentNode.left != null)
+                {
+                    currentLevel.add(currentNode.left);
+                }
+                if (currentNode.right != null)
+                {
+                    currentLevel.add(currentNode.right);
+                }
+            }
+
+            if (currentLevel.size() == 0)
+            {
+                break;
+            }
+
+            listOfDepths.add(currentLevel);
+            lastLevel = currentLevel;
+        }
+
+        return listOfDepths;
     }
 }
