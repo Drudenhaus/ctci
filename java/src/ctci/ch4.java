@@ -112,14 +112,36 @@ public class ch4
         return listOfDepths;
     }
 
-    // #4 TODO
+    // #4
     public static boolean CheckBalance(BinaryTreeNode inputNode)
     {
         /*
-         * Time complexity: O(n)
-         * Space complexity: 
+         * Time complexity: O(n) with respect to the number of nodes
+         * Space complexity: O(n) stack space with respect to the height of the tree (e.g. root->right->right->return->left->return->return)
          */
-        return false;
+        return getHeight(inputNode) > 0;
+    }
+
+    public static int getHeight(BinaryTreeNode inputNode)
+    {
+        if (inputNode == null)
+        {
+            return 0;
+        }
+
+        int rightHeight = getHeight(inputNode.right);
+        int leftHeight = getHeight(inputNode.left);
+
+        if ((rightHeight == -1) || (leftHeight == -1))
+        {
+            return -1;
+        }
+
+        if (Math.abs(rightHeight - leftHeight) > 1)
+        {
+            return -1;
+        }
+        return Math.max(rightHeight,  leftHeight) + 1;
     }
 
     // #5 

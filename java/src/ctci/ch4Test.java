@@ -133,6 +133,25 @@ class ch4Test
     }
 
     @Test
+    void testCheckBalancedTrue()
+    {
+        int[] intArray = {1, 2, 3, 4, 5, 6, 7};
+        BinaryTreeNode rootNode = ch4.MinimalTree(intArray);
+        assertTrue(ch4.CheckBalance(rootNode));
+    }
+
+    @Test
+    void testCheckBalancedFalse()
+    {
+        int[] intArray = {1, 2, 3, 4, 5, 6, 7};
+        BinaryTreeNode rootNode = ch4.MinimalTree(intArray);
+        rootNode.left.left.left = new BinaryTreeNode(9);
+        rootNode.left.left.left.right = new BinaryTreeNode(9);
+        // Tree is now has a maximum height difference of 2
+        assertFalse(ch4.CheckBalance(rootNode));
+    }
+
+    @Test
     void testCheckBSTTrue()
     {
         int[] intArray = {1, 2, 3, 4, 5, 6, 7};
