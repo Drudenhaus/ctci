@@ -134,22 +134,26 @@ public class ch4
             return false;
         }
 
-        return ValidateBSTHelper(inputNode.left) && ValidateBSTHelper(inputNode.right);
+        return ValidateBST(inputNode, null, null);
     }
 
-    // TODO update to include min/max bounds of the subtree's values
-    public static boolean ValidateBSTHelper(BinaryTreeNode inputNode)
+    public static boolean ValidateBST(BinaryTreeNode inputNode, Integer lowerBound, Integer upperBound)
     {
         if (inputNode == null)
         {
             return true;
         }
 
-        if ((inputNode.left != null && inputNode.left.data >= inputNode.data) || (inputNode.right != null && inputNode.right.data < inputNode.data))
+        // Adding bounds checking works best with individual node checking rather than my prior approach of testing the left and right nodes
+        if ((lowerBound != null && inputNode.data <= lowerBound) || (upperBound != null && inputNode.data > upperBound))
         {
             return false;
         }
 
-        return ValidateBSTHelper(inputNode.left) && ValidateBSTHelper(inputNode.right);
+        if (ValidateBST(inputNode.left, lowerBound, inputNode.data) && ValidateBST(inputNode.right, inputNode.data, upperBound))
+        {
+            return true;
+        }
+        return false;
     }
 }
