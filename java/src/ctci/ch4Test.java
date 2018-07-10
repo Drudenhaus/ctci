@@ -198,4 +198,44 @@ class ch4Test
         rootNode.left.right.right = new BinaryTreeNode(10);
         assertFalse(ch4.ValidateBST(rootNode));
     }
+
+    @Test
+    void testSuccessorNullReturnsNull()
+    {
+        assertEquals(null, ch4.Successor(null));
+    }
+
+    @Test
+    void testSuccessorAllNodes()
+    {
+        /*
+         * Looks like this:
+              4
+            2   6
+           1 3 5 7
+         */
+        BinaryTreeNode rootNode = new BinaryTreeNode(4);
+        BinaryTreeNode oneNode = new BinaryTreeNode(1);
+        BinaryTreeNode twoNode = new BinaryTreeNode(2);
+        BinaryTreeNode threeNode = new BinaryTreeNode(3);
+        BinaryTreeNode fiveNode = new BinaryTreeNode(5);
+        BinaryTreeNode sixNode = new BinaryTreeNode(6);
+        BinaryTreeNode sevenNode = new BinaryTreeNode(7);
+
+        rootNode.setLeftChild(twoNode);
+        rootNode.setRightChild(sixNode);
+        twoNode.setLeftChild(oneNode);
+        twoNode.setRightChild(threeNode);
+        sixNode.setLeftChild(fiveNode);
+        sixNode.setRightChild(sevenNode);
+
+        assertEquals(5, ch4.Successor(rootNode).data);
+        assertEquals(2, ch4.Successor(oneNode).data);
+        assertEquals(3, ch4.Successor(twoNode).data);
+        assertEquals(4, ch4.Successor(threeNode).data);
+        assertEquals(5, ch4.Successor(rootNode).data);
+        assertEquals(6, ch4.Successor(fiveNode).data);
+        assertEquals(7, ch4.Successor(sixNode).data);
+        assertEquals(null, ch4.Successor(sevenNode));
+    }
 }

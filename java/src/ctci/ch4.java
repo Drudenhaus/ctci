@@ -178,4 +178,50 @@ public class ch4
         }
         return false;
     }
+
+    // #6
+    public static BinaryTreeNode Successor(BinaryTreeNode inputNode)
+    {
+        /*
+         * Time complexity: O(log n) with respect to the size of the tree
+         * Space complexity: O(1)
+         */
+        if (inputNode == null)
+        {
+            return null;
+        }
+
+        // If right subtree exists return the left most node in the subtree
+        if (inputNode.right != null)
+        {
+            return GetLeft(inputNode.right);
+        }
+        // Return the correct parent node (or null if the last node)
+        else
+        {
+            BinaryTreeNode parentNode = inputNode.parent;
+            // Return the first parent node whose left child we traversed
+            // or null if we go all the way up the tree (indicative of trying to find the parent of the last node)
+            while (parentNode != null && parentNode.left != inputNode)
+            {
+                inputNode = parentNode;
+                parentNode = parentNode.parent;
+            }
+            return parentNode;
+        }
+    }
+
+    public static BinaryTreeNode GetLeft(BinaryTreeNode inputNode)
+    {
+        if (inputNode == null)
+        {
+            return null;
+        }
+
+        while (inputNode.left != null)
+        {
+            inputNode = inputNode.left;
+        }
+        return inputNode;
+    }
 }
