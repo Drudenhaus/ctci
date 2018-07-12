@@ -1,12 +1,11 @@
 package ctci;
 
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 
-import org.junit.jupiter.api.Test;
-
-import MyLibrary.GraphNode;
+import MyLibrary.GraphVertex;
 import MyLibrary.BinaryTreeNode;
 
 class ch4Test
@@ -15,22 +14,22 @@ class ch4Test
     @Test
     void testRouteBetweenNodesSingleNode()
     {
-        GraphNode rootNode = new GraphNode("root");
-        GraphNode nodeTwo = new GraphNode("nodeTwo");
-        GraphNode nodeThree = new GraphNode("nodeThree");
-        GraphNode nodeFour = new GraphNode("nodeFour");
-        GraphNode nodeFive = new GraphNode("nodeFive");
-        GraphNode nodeSix = new GraphNode("nodeSix");
-        GraphNode nodeSeven = new GraphNode("nodeSeven");
+        GraphVertex rootNode = new GraphVertex("root");
+        GraphVertex nodeTwo = new GraphVertex("nodeTwo");
+        GraphVertex nodeThree = new GraphVertex("nodeThree");
+        GraphVertex nodeFour = new GraphVertex("nodeFour");
+        GraphVertex nodeFive = new GraphVertex("nodeFive");
+        GraphVertex nodeSix = new GraphVertex("nodeSix");
+        GraphVertex nodeSeven = new GraphVertex("nodeSeven");
 
-        rootNode.addChild(nodeTwo);
-        rootNode.addChild(nodeThree);
+        rootNode.addSuccessor(nodeTwo);
+        rootNode.addSuccessor(nodeThree);
 
-        nodeTwo.addChild(nodeFour);
-        nodeTwo.addChild(nodeFive);
+        nodeTwo.addSuccessor(nodeFour);
+        nodeTwo.addSuccessor(nodeFive);
 
-        nodeThree.addChild(nodeSix);
-        nodeThree.addChild(nodeSeven);
+        nodeThree.addSuccessor(nodeSix);
+        nodeThree.addSuccessor(nodeSeven);
 
         assertTrue(ch4.RouteBetweenNodes(rootNode, nodeSeven));
     }
@@ -38,23 +37,23 @@ class ch4Test
     @Test
     void testRouteBetweenNodesTrueWithLoop()
     {
-        GraphNode rootNode = new GraphNode("root");
-        GraphNode nodeTwo = new GraphNode("nodeTwo");
-        GraphNode nodeThree = new GraphNode("nodeThree");
-        GraphNode nodeFour = new GraphNode("nodeFour");
-        GraphNode nodeFive = new GraphNode("nodeFive");
-        GraphNode nodeSix = new GraphNode("nodeSix");
-        GraphNode nodeSeven = new GraphNode("nodeSeven");
+        GraphVertex rootNode = new GraphVertex("root");
+        GraphVertex nodeTwo = new GraphVertex("nodeTwo");
+        GraphVertex nodeThree = new GraphVertex("nodeThree");
+        GraphVertex nodeFour = new GraphVertex("nodeFour");
+        GraphVertex nodeFive = new GraphVertex("nodeFive");
+        GraphVertex nodeSix = new GraphVertex("nodeSix");
+        GraphVertex nodeSeven = new GraphVertex("nodeSeven");
 
-        rootNode.addChild(nodeTwo);
-        rootNode.addChild(nodeThree);
+        rootNode.addSuccessor(nodeTwo);
+        rootNode.addSuccessor(nodeThree);
 
-        nodeTwo.addChild(nodeFour);
-        nodeTwo.addChild(nodeFive);
+        nodeTwo.addSuccessor(nodeFour);
+        nodeTwo.addSuccessor(nodeFive);
 
-        nodeThree.addChild(rootNode);
-        nodeThree.addChild(nodeSix);
-        nodeThree.addChild(nodeSeven);
+        nodeThree.addSuccessor(rootNode);
+        nodeThree.addSuccessor(nodeSix);
+        nodeThree.addSuccessor(nodeSeven);
 
         assertTrue(ch4.RouteBetweenNodes(rootNode, nodeSeven));
     }
@@ -62,29 +61,29 @@ class ch4Test
     @Test
     void testRouteBetweenNodesTrue()
     {
-        GraphNode rootNode = new GraphNode("root");
+        GraphVertex rootNode = new GraphVertex("root");
         assertTrue(ch4.RouteBetweenNodes(rootNode, rootNode));
     }
 
     @Test
     void testRouteBetweenNodesFalse()
     {
-        GraphNode rootNode = new GraphNode("root");
-        GraphNode nodeTwo = new GraphNode("nodeTwo");
-        GraphNode nodeThree = new GraphNode("nodeThree");
-        GraphNode nodeFour = new GraphNode("nodeFour");
-        GraphNode nodeFive = new GraphNode("nodeFive");
-        GraphNode nodeSix = new GraphNode("nodeSix");
-        GraphNode nodeSeven = new GraphNode("nodeSeven");
+        GraphVertex rootNode = new GraphVertex("root");
+        GraphVertex nodeTwo = new GraphVertex("nodeTwo");
+        GraphVertex nodeThree = new GraphVertex("nodeThree");
+        GraphVertex nodeFour = new GraphVertex("nodeFour");
+        GraphVertex nodeFive = new GraphVertex("nodeFive");
+        GraphVertex nodeSix = new GraphVertex("nodeSix");
+        GraphVertex nodeSeven = new GraphVertex("nodeSeven");
 
-        rootNode.addChild(nodeTwo);
-        rootNode.addChild(nodeThree);
+        rootNode.addSuccessor(nodeTwo);
+        rootNode.addSuccessor(nodeThree);
 
-        nodeTwo.addChild(nodeFour);
-        nodeTwo.addChild(nodeFive);
+        nodeTwo.addSuccessor(nodeFour);
+        nodeTwo.addSuccessor(nodeFive);
 
-        nodeThree.addChild(nodeSix);
-        nodeThree.addChild(nodeSeven);
+        nodeThree.addSuccessor(nodeSix);
+        nodeThree.addSuccessor(nodeSeven);
         assertFalse(ch4.RouteBetweenNodes(nodeTwo, rootNode));
     }
 
@@ -238,4 +237,66 @@ class ch4Test
         assertEquals(7, ch4.Successor(sixNode).data);
         assertEquals(null, ch4.Successor(sevenNode));
     }
+
+    @Test
+    void testBuildOrder()
+    {
+        // a, b, c, d, e,f 
+        // (a, d), (f, b), (b, d), (f, a), (d, c)
+        // f, e, a, b, d, c
+        GraphVertex aVertex = new GraphVertex("a");
+        GraphVertex bVertex = new GraphVertex("b");
+        GraphVertex cVertex = new GraphVertex("c");
+        GraphVertex dVertex = new GraphVertex("d");
+        GraphVertex eVertex = new GraphVertex("e");
+        GraphVertex fVertex = new GraphVertex("f");
+        LinkedList<GraphVertex> projectList = new LinkedList<GraphVertex>();
+        projectList.add(aVertex);
+        projectList.add(bVertex);
+        projectList.add(cVertex);
+        projectList.add(dVertex);
+        projectList.add(eVertex);
+        projectList.add(fVertex);
+
+        LinkedList<LinkedList<GraphVertex>> dependencyList = new LinkedList<LinkedList<GraphVertex>>();
+
+        LinkedList<GraphVertex> adDep = new LinkedList<GraphVertex>();
+        adDep.add(aVertex);
+        adDep.add(dVertex);
+        dependencyList.add(adDep);
+
+        LinkedList<GraphVertex> fbDep = new LinkedList<GraphVertex>();
+        fbDep.add(fVertex);
+        fbDep.add(bVertex);
+        dependencyList.add(fbDep);
+
+        LinkedList<GraphVertex> bdDep = new LinkedList<GraphVertex>();
+        bdDep.add(bVertex);
+        bdDep.add(dVertex);
+        dependencyList.add(bdDep);
+
+        LinkedList<GraphVertex> faDep = new LinkedList<GraphVertex>();
+        faDep.add(fVertex);
+        faDep.add(aVertex);
+        dependencyList.add(faDep);
+
+        LinkedList<GraphVertex> dcDep = new LinkedList<GraphVertex>();
+        dcDep.add(dVertex);
+        dcDep.add(cVertex);
+        dependencyList.add(dcDep);
+
+        LinkedList<GraphVertex> buildOrder = ch4.BuildOrder(projectList, dependencyList);
+        StringBuilder orderStringBuilder = new StringBuilder();
+        for (GraphVertex vertex : buildOrder)
+        {
+            orderStringBuilder.append(vertex.name);
+        }
+        // The TreeSet maintains an order so this can be tested reliably
+        assertEquals("efabdc", orderStringBuilder.toString());
+    }
+
+    // TODO test case with cycle but there exists a starting vertex
+    // TODO test case with cycle and no starting vertex
+    // TODO test case with null projectList
+    // TODO test case with null dependencyList
 }

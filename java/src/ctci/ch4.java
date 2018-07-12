@@ -3,24 +3,25 @@ package ctci;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import MyLibrary.GraphNode;
+import MyLibrary.Graph;
+import MyLibrary.GraphVertex;
 import MyLibrary.BinaryTreeNode;
 
 public class ch4
 {
     // #1
-    public static boolean RouteBetweenNodes(GraphNode startNode, GraphNode destinationNode)
+    public static boolean RouteBetweenNodes(GraphVertex startNode, GraphVertex destinationNode)
     {
         /*
          * Time complexity: O(n) with respect to the number of nodes in the graph
          * Space complexity: O(n) for the queue
          */
-        ConcurrentLinkedQueue<GraphNode> graphNodeQueue = new ConcurrentLinkedQueue<GraphNode>();
-        graphNodeQueue.add(startNode);
+        ConcurrentLinkedQueue<GraphVertex> graphVertexQueue = new ConcurrentLinkedQueue<GraphVertex>();
+        graphVertexQueue.add(startNode);
 
-        while (graphNodeQueue.size() > 0)
+        while (graphVertexQueue.size() > 0)
         {
-            GraphNode currentNode = graphNodeQueue.remove();
+            GraphVertex currentNode = graphVertexQueue.remove();
             
             if (currentNode.visited)
             {
@@ -35,9 +36,9 @@ public class ch4
                 return true;
             }
 
-            for (GraphNode currentChild : currentNode.children)
+            for (GraphVertex currentChild : currentNode.successors)
             {
-                graphNodeQueue.add(currentChild);
+                graphVertexQueue.add(currentChild);
             }
         }
         return false;
@@ -223,5 +224,75 @@ public class ch4
             inputNode = inputNode.left;
         }
         return inputNode;
+    }
+
+    // #7
+    public static LinkedList<GraphVertex> BuildOrder(LinkedList<GraphVertex> projects, LinkedList<LinkedList<GraphVertex>> dependencies)
+    {
+        /*
+         * Time complexity: O(n + e) with respect to the number of vertices (projects) and edges (dependencies)
+         * Space complexity: O(n) with respect to the number of vertices (projects) to store the graph and queue
+         */
+        if (projects == null || projects.size() == 0)
+        {
+            return null;
+        }
+        if (dependencies == null || projects.size() == 0)
+        {
+            return projects;
+        }
+
+        LinkedList<GraphVertex> projectOrder = new LinkedList<GraphVertex>();
+
+        // Construct directed graph
+        Graph projectGraph = new Graph();
+        for (GraphVertex project : projects)
+        {
+            projectGraph.addVertex(project);
+        }
+
+        for (LinkedList<GraphVertex> vertexPair : dependencies)
+        {
+            vertexPair.getFirst().addSuccessor(vertexPair.getLast());
+        }
+
+        // KHAAAAAAN!
+        // Begin topological sort
+        ConcurrentLinkedQueue<GraphVertex> graphVertexQueue = new ConcurrentLinkedQueue<GraphVertex>();
+        for (GraphVertex currentVertex : projects)
+        {
+            if (currentVertex.inDegree == 0)
+            {
+                graphVertexQueue.add(currentVertex);
+            }
+        }
+
+        // No starting point due to cycles (circular dependencies)
+        if (graphVertexQueue.size() == 0)
+        {
+            return null;
+        }
+
+        while (graphVertexQueue.size() != 0)
+        {
+            GraphVertex currentVertex = graphVertexQueue.poll();
+            projectOrder.add(currentVertex);
+            for (GraphVertex successor : currentVertex.successors)
+            {
+                successor.inDegree--;
+                if (successor.inDegree == 0)
+                {
+                    graphVertexQueue.add(successor);
+                }
+            }
+        }
+
+        // There exists at least one cycle (circular dependency)
+        if (projectOrder.size() != projects.size())
+        {
+            return null;
+        }
+
+        return projectOrder;
     }
 }
