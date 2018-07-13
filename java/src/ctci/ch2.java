@@ -123,4 +123,48 @@ public class ch2
             inputNode.setNext(nextNode.next);
         }
     }
+
+    // #4
+    public static void Partition(LinkedListNode headNode, int partitionValue)
+    {
+        /*
+         * Time complexity: O(n) with respect to the size of the list
+         * Space complexity: O(1)
+         */
+        if (headNode == null)
+        {
+            return;
+        }
+
+        // Find the tail node
+        LinkedListNode tailNode = headNode.next;
+        while (tailNode.next != null)
+        {
+            tailNode = tailNode.next;
+        }
+
+        LinkedListNode currentFront = headNode;
+        LinkedListNode currentBack = tailNode;
+
+        while (currentFront != currentBack)
+        {
+            // Find swap candidate in left partition
+            while (currentFront != currentBack && currentFront.data < partitionValue)
+            {
+                currentFront = currentFront.next;
+            }
+            // Find swap candidate in right partition
+            while (currentFront != currentBack && currentBack.data >= partitionValue)
+            {
+                currentBack = currentBack.prev;
+            }
+            // Only swap if the ends have not met
+            if (currentFront != currentBack)
+            {
+                int temp = currentFront.data;
+                currentFront.data = currentBack.data;
+                currentBack.data = temp;
+            }
+        }
+    }
 }

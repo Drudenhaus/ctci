@@ -83,7 +83,8 @@ class ch2Test
         assertEquals(nodeThree, ch2.ReturnKthToLastSlightlyBetter(head, 3));
     }
 
-    @Test void testDeleteMiddleNode()
+    @Test
+    void testDeleteMiddleNode()
     {
         LinkedListNode head = new LinkedListNode(1);
         LinkedListNode nodeTwo = new LinkedListNode(2);
@@ -102,5 +103,65 @@ class ch2Test
         assertEquals("1->2->3->4->4->5", head.printForward());
         ch2.DeleteMiddleNode(nodeThree);
         assertEquals("1->2->4->4->5", head.printForward());
+    }
+
+    @Test
+    void testPartition()
+    {
+        LinkedListNode head = new LinkedListNode(3);
+        LinkedListNode nodeTwo = new LinkedListNode(5);
+        LinkedListNode nodeThree = new LinkedListNode(8);
+        LinkedListNode nodeFour = new LinkedListNode(5);
+        LinkedListNode nodeFive = new LinkedListNode(10);
+        LinkedListNode nodeSix = new LinkedListNode(2);
+        LinkedListNode tail = new LinkedListNode(1);
+        head.setNext(nodeTwo);
+        nodeTwo.setNext(nodeThree);
+        nodeThree.setNext(nodeFour);
+        nodeFour.setNext(nodeFive);
+        nodeFive.setNext(nodeSix);
+        nodeSix.setNext(tail);
+        ch2.Partition(head, 5);
+        assertEquals("3->1->2->5->10->8->5", head.printForward());
+    }
+
+    @Test
+    void testPartitionLTAll()
+    {
+        LinkedListNode head = new LinkedListNode(3);
+        LinkedListNode nodeTwo = new LinkedListNode(5);
+        LinkedListNode nodeThree = new LinkedListNode(8);
+        LinkedListNode nodeFour = new LinkedListNode(5);
+        LinkedListNode nodeFive = new LinkedListNode(10);
+        LinkedListNode nodeSix = new LinkedListNode(2);
+        LinkedListNode tail = new LinkedListNode(1);
+        head.setNext(nodeTwo);
+        nodeTwo.setNext(nodeThree);
+        nodeThree.setNext(nodeFour);
+        nodeFour.setNext(nodeFive);
+        nodeFive.setNext(nodeSix);
+        nodeSix.setNext(tail);
+        ch2.Partition(head, 0);
+        assertEquals("3->5->8->5->10->2->1", head.printForward());
+    }
+
+    @Test
+    void testPartitionGTAll()
+    {
+        LinkedListNode head = new LinkedListNode(3);
+        LinkedListNode nodeTwo = new LinkedListNode(5);
+        LinkedListNode nodeThree = new LinkedListNode(8);
+        LinkedListNode nodeFour = new LinkedListNode(5);
+        LinkedListNode nodeFive = new LinkedListNode(10);
+        LinkedListNode nodeSix = new LinkedListNode(2);
+        LinkedListNode tail = new LinkedListNode(1);
+        head.setNext(nodeTwo);
+        nodeTwo.setNext(nodeThree);
+        nodeThree.setNext(nodeFour);
+        nodeFour.setNext(nodeFive);
+        nodeFive.setNext(nodeSix);
+        nodeSix.setNext(tail);
+        ch2.Partition(head, 11);
+        assertEquals("3->5->8->5->10->2->1", head.printForward());
     }
 }
