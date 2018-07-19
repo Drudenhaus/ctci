@@ -299,4 +299,61 @@ class ch4Test
     // TODO test case with cycle and no starting vertex
     // TODO test case with null projectList
     // TODO test case with null dependencyList
+
+    @Test
+    void testFirstCommonAncestor()
+    {
+        /*
+         * Looks like this:
+              4
+            2   6
+           1 3 5 7
+         */
+        BinaryTreeNode rootNode = new BinaryTreeNode(4);
+        BinaryTreeNode oneNode = new BinaryTreeNode(1);
+        BinaryTreeNode twoNode = new BinaryTreeNode(2);
+        BinaryTreeNode threeNode = new BinaryTreeNode(3);
+        BinaryTreeNode fiveNode = new BinaryTreeNode(5);
+        BinaryTreeNode sixNode = new BinaryTreeNode(6);
+        BinaryTreeNode sevenNode = new BinaryTreeNode(7);
+
+        rootNode.setLeftChild(twoNode);
+        rootNode.setRightChild(sixNode);
+        twoNode.setLeftChild(oneNode);
+        twoNode.setRightChild(threeNode);
+        sixNode.setLeftChild(fiveNode);
+        sixNode.setRightChild(sevenNode);
+        assertEquals(4, ch4.FirstCommonAncestor(twoNode, sixNode).data);
+        assertEquals(4, ch4.FirstCommonAncestor(threeNode, fiveNode).data);
+        assertEquals(6, ch4.FirstCommonAncestor(sevenNode, fiveNode).data);
+    }
+
+    @Test
+    void testRecursiveFirstCommonAncestor()
+    {
+        /*
+         * Looks like this:
+              4
+            2   6
+           1 3 5 7
+         */
+        BinaryTreeNode rootNode = new BinaryTreeNode(4);
+        BinaryTreeNode oneNode = new BinaryTreeNode(1);
+        BinaryTreeNode twoNode = new BinaryTreeNode(2);
+        BinaryTreeNode threeNode = new BinaryTreeNode(3);
+        BinaryTreeNode fiveNode = new BinaryTreeNode(5);
+        BinaryTreeNode sixNode = new BinaryTreeNode(6);
+        BinaryTreeNode sevenNode = new BinaryTreeNode(7);
+
+        rootNode.setLeftChild(twoNode);
+        rootNode.setRightChild(sixNode);
+        twoNode.setLeftChild(oneNode);
+        twoNode.setRightChild(threeNode);
+        sixNode.setLeftChild(fiveNode);
+        sixNode.setRightChild(sevenNode);
+        assertEquals(4, ch4.RecursiveFirstCommonAncestor(rootNode, twoNode, sixNode).data);
+        assertEquals(2, ch4.RecursiveFirstCommonAncestor(rootNode, twoNode, oneNode).data);
+        assertEquals(4, ch4.RecursiveFirstCommonAncestor(rootNode, threeNode, fiveNode).data);
+        assertEquals(6, ch4.RecursiveFirstCommonAncestor(rootNode, sevenNode, fiveNode).data);
+    }
 }

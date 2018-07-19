@@ -1,5 +1,7 @@
 package ctci;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -294,5 +296,122 @@ public class ch4
         }
 
         return projectOrder;
+    }
+
+    // #8
+    public static BinaryTreeNode FirstCommonAncestor(BinaryTreeNode nodeA, BinaryTreeNode nodeB)
+    {
+        /*
+         * Time complexity: O(n) with respect to the height of the tree
+         * Space complexity: O(1)
+         */
+        if (nodeA == null || nodeB == null)
+        {
+            return null;
+        }
+
+        // Make nodeA and nodeB the same height
+        int nodeADepth = getDepthUsingParentReference(nodeA);
+        int nodeBDepth = getDepthUsingParentReference(nodeB);
+        int heightDifference = Math.abs(nodeADepth - nodeBDepth);
+        if (nodeADepth > nodeBDepth)
+        {
+            nodeA = traverseUpwardsUsingParentReference(nodeA, heightDifference);
+        }
+        else if (nodeBDepth > nodeADepth)
+        {
+            nodeB = traverseUpwardsUsingParentReference(nodeB, heightDifference);
+        }
+
+        // nodeA and nodeB are now the same height
+        while (nodeA.parent != null)
+        {
+            nodeA = nodeA.parent;
+            nodeB = nodeB.parent;
+            if (nodeA == nodeB)
+            {
+                return nodeA;
+            }
+        }
+        return null;
+
+    }
+
+    private static int getDepthUsingParentReference(BinaryTreeNode node)
+    {
+        int depth = 0;
+        while (node.parent != null)
+        {
+            depth++;
+            node = node.parent;
+        }
+        return depth;
+    }
+
+    private static BinaryTreeNode traverseUpwardsUsingParentReference(BinaryTreeNode node, int count)
+    {
+        if (count == 0 || node == null)
+        {
+            return null;
+        }
+        for (int i = 0; i < count; i++)
+        {
+            node = node.parent;
+        }
+        return node;
+    }
+
+    public static BinaryTreeNode RecursiveFirstCommonAncestor(BinaryTreeNode rootNode, BinaryTreeNode nodeA, BinaryTreeNode nodeB)
+    {
+        /*
+         * Time complexity: O(n) with respect to the height of the tree
+         * Space complexity: O(n) with respect to the height of the tree for stack space
+         */
+        if (rootNode == null || nodeA == null || nodeB == null || !IsInSubTree(rootNode, nodeA) || !IsInSubTree(rootNode, nodeB))
+        {
+            return null;
+        }
+
+        return GetFirstCommonAncestor(rootNode, nodeA, nodeB);
+    }
+
+    private static BinaryTreeNode GetFirstCommonAncestor(BinaryTreeNode rootNode, BinaryTreeNode nodeA, BinaryTreeNode nodeB)
+    {
+        if (rootNode == nodeA || rootNode == nodeB || rootNode == null)
+        {
+            return rootNode;
+        }
+
+        boolean nodeAInLeft = IsInSubTree(rootNode.left, nodeA);
+        boolean nodeBInLeft = IsInSubTree(rootNode.left, nodeB);
+        // If not in the same subtree then this is a common ancestor
+        if (nodeAInLeft != nodeBInLeft)
+        {
+            return rootNode;
+        }
+
+        // Nodes must be in the same subtree so recurse into whichever that is
+        if (nodeAInLeft)
+        {
+            return GetFirstCommonAncestor(rootNode.left, nodeA, nodeB);
+        }
+        else
+        {
+            return GetFirstCommonAncestor(rootNode.right, nodeA, nodeB);
+        }
+    }
+
+    private static boolean IsInSubTree(BinaryTreeNode subTreeRootNode, BinaryTreeNode node)
+    {
+        if (subTreeRootNode == null)
+        {
+            return false;
+        }
+        else if (subTreeRootNode == node)
+        {
+            return true;
+        }
+
+        return IsInSubTree(subTreeRootNode.left, node) || IsInSubTree(subTreeRootNode.right, node);
     }
 }
