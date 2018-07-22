@@ -1,36 +1,31 @@
 package ctci_ch7_1;
 
+/*
+ * Assumption: represents a card from a standard 52-card deck (Ace through King, four standard suits)
+ */
+
 public abstract class AbstractCard
 {
-	CardSuit suit;
-	int value;
+    protected CardSuit suit;
+    protected int value;
 
-	public int getValue()
-	{
-		return this.value;
-	}
+    public int getValue()
+    {
+        return this.value;
+    }
 
-	public void setValue(int newValue)
-	{
-		this.value = newValue;
-	}
+    public void setValue(int newValue)
+    {
+        this.value = newValue;
+    }
 
-	public CardSuit getSuit()
-	{
-		return this.suit;
-	}
+    public CardSuit getSuit()
+    {
+        return this.suit;
+    }
 
-	public void setValue(CardSuit newSuit)
-	{
-		this.suit = newSuit;
-	}
-
-	public String toString()
-	{
-		StringBuilder name = new StringBuilder();
-		name.append(this.value);
-		name.append(" of ");
-		name.append(this.suit.toString());
-		return name.toString();
-	}
+    public void setSuit(CardSuit newSuit)
+    {
+        this.suit = newSuit;
+    }
 }

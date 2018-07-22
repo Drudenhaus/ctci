@@ -3,9 +3,12 @@ package ctci_ch7_1;
 public class deckDriver
 {
 
-	public static void main(String[] args)
-	{
-		BlackjackCard newCard = new BlackjackCard(CardSuit.CLUBS, BlackjackCardRank.ACE);
-		System.out.println(newCard);
-	}
+    public static void main(String[] args)
+    {
+        BlackjackDeck newDeck = new BlackjackDeck();
+        newDeck.shuffle();
+        System.out.println(newDeck.toString());
+        System.out.println(newDeck.getSize());
+
+    }
 }
