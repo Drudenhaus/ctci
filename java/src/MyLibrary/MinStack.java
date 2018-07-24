@@ -28,6 +28,10 @@ public class MinStack
 
     public int pop()
     {
+        if (this.top == null)
+        {
+            return Integer.MAX_VALUE;
+        }
         int retValue = this.top.data;
         this.top = this.top.next;
         return retValue;
