@@ -3,13 +3,16 @@ package ctci;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Stack;
+
 import MyLibrary.MinStack;
 import MyLibrary.MyQueue;
 import MyLibrary.SetOfStacks;
 
 class ch3Test
 {
-    // # 3.2
+    // #3.2
     @Test
     void testMinStack()
     {
@@ -39,7 +42,7 @@ class ch3Test
         assertEquals(Integer.MAX_VALUE, ourStack.peekMin());
     }
 
-    // # 3.3
+    // #3.3
     @Test
     void testSetOfStacks()
     {
@@ -60,7 +63,7 @@ class ch3Test
         assertEquals(Integer.MAX_VALUE, ourStacks.pop());
     }
 
-    // # 3.4
+    // #3.4
     @Test
     void testMyQueue()
     {
@@ -79,5 +82,22 @@ class ch3Test
         ourQueue.enqueue(4);
         assertEquals(4, ourQueue.dequeue());
         assertEquals(Integer.MAX_VALUE, ourQueue.dequeue());
+    }
+
+    // #3.5
+    @Test
+    void testSortStack()
+    {
+        Stack<Integer> ourStack = new Stack<Integer>();
+        ourStack.push(9);
+        ourStack.push(2);
+        ourStack.push(3);
+        ourStack.push(1);
+        ourStack.push(4);
+        ourStack.push(5);
+
+        ch3.SortStack(ourStack);
+        Integer[] expected = {1, 2, 3, 4, 5, 9};
+        assertTrue(Arrays.deepEquals(expected, ourStack.toArray()));
     }
 }
