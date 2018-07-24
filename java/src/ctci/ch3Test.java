@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import MyLibrary.MinStack;
+import MyLibrary.SetOfStacks;
 
 class ch3Test
 {
@@ -35,5 +36,26 @@ class ch3Test
 
         assertEquals(Integer.MAX_VALUE, ourStack.peek());
         assertEquals(Integer.MAX_VALUE, ourStack.peekMin());
+    }
+
+    // # 3.3
+    @Test
+    void testSetOfStacks()
+    {
+        SetOfStacks ourStacks = new SetOfStacks(2);
+        ourStacks.push(1);
+        ourStacks.push(2);
+        ourStacks.push(3);
+        ourStacks.push(4);
+        ourStacks.push(5);
+
+        assertEquals(5, ourStacks.size());
+        assertEquals(2, ourStacks.popAt(2));
+        assertEquals(5, ourStacks.pop());
+        assertEquals(4, ourStacks.pop());
+        assertEquals(3, ourStacks.pop());
+        assertEquals(1, ourStacks.pop());
+        assertEquals(0, ourStacks.size());
+        assertEquals(Integer.MAX_VALUE, ourStacks.pop());
     }
 }
