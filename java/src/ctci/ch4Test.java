@@ -356,4 +356,28 @@ class ch4Test
         assertEquals(4, ch4.RecursiveFirstCommonAncestor(rootNode, threeNode, fiveNode).data);
         assertEquals(6, ch4.RecursiveFirstCommonAncestor(rootNode, sevenNode, fiveNode).data);
     }
+
+    // #10
+    @Test
+    void testCheckSubtree()
+    {
+        /*
+              4
+            2   6
+           1 3 5 7
+         */
+        BinaryTreeNode rootNode = ch4.MinimalTree(new int[]{1, 2, 3, 4, 5, 6, 7});
+
+        /*
+            2
+           1 3
+         */
+        BinaryTreeNode validSubtreeRoot = rootNode.left;
+        BinaryTreeNode notASubtreeRoot = ch4.MinimalTree(new int[]{1, 2, 3});
+
+        assertTrue(ch4.CheckSubtree(rootNode, rootNode));
+        assertTrue(ch4.CheckSubtree(rootNode, validSubtreeRoot));
+        // Equal by value but not by reference so this should return false
+        assertFalse(ch4.CheckSubtree(rootNode, notASubtreeRoot));
+    }
 }

@@ -1,7 +1,5 @@
 package ctci;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -413,5 +411,58 @@ public class ch4
         }
 
         return IsInSubTree(subTreeRootNode.left, node) || IsInSubTree(subTreeRootNode.right, node);
+    }
+
+    // #10
+    public static boolean CheckSubtree(BinaryTreeNode mainTreeNode, BinaryTreeNode subtreeNode)
+    {
+        /*
+         * Time complexity: O(n + s*r)
+         * Space complexity: O(logs + l) stack space and queue
+         * n = size of tree being searched/parent tree
+         * s = size of subtree
+         * r = instances of subtreeNode in mainTreeNode
+         * l = number of nodes in the largest level of the searched/main tree
+         * Assumption: Being a subtree means the subtree contains the node objects of the searched/parent tree.
+         *             As such, this tests for reference equality rather than value equality.
+         */
+        LinkedList<BinaryTreeNode> nodeQueue = new LinkedList<BinaryTreeNode>();
+        nodeQueue.add(mainTreeNode);
+
+        while (nodeQueue.size() > 0)
+        {
+            BinaryTreeNode currentNode = nodeQueue.remove();
+            if (currentNode == null)
+            {
+                continue;
+            }
+
+            // Or pick your choice of equivalence testing
+            if (currentNode == subtreeNode)
+            {
+                if (RecursiveCheckSubtree(currentNode, subtreeNode))
+                {
+                    return true;
+                }
+            }
+
+            nodeQueue.add(currentNode.left);
+            nodeQueue.add(currentNode.right);
+        }
+        return false;
+    }
+
+    private static boolean RecursiveCheckSubtree(BinaryTreeNode mainTreeNode, BinaryTreeNode subtreeNode)
+    {
+        if (subtreeNode == null)
+        {
+            return true;
+        }
+        else if (mainTreeNode != subtreeNode)
+        {
+            return false;
+        }
+
+        return RecursiveCheckSubtree(mainTreeNode.left, subtreeNode.left) && RecursiveCheckSubtree(mainTreeNode.right, subtreeNode.right);
     }
 }
