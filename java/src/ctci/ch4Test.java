@@ -380,4 +380,35 @@ class ch4Test
         // Equal by value but not by reference so this should return false
         assertFalse(ch4.CheckSubtree(rootNode, notASubtreeRoot));
     }
+
+    // #12
+    @Test
+    void testPathsWithSum()
+    {
+        /*
+               4
+          2        6
+         1 3     5   7
+       -1   -3        -11
+        */
+
+        BinaryTreeNode rootNode = new BinaryTreeNode(4);
+        BinaryTreeNode oneNode = new BinaryTreeNode(1);
+        BinaryTreeNode twoNode = new BinaryTreeNode(2);
+        BinaryTreeNode threeNode = new BinaryTreeNode(3);
+        BinaryTreeNode fiveNode = new BinaryTreeNode(5);
+        BinaryTreeNode sixNode = new BinaryTreeNode(6);
+        BinaryTreeNode sevenNode = new BinaryTreeNode(7);
+
+        rootNode.setLeftChild(twoNode);
+        rootNode.setRightChild(sixNode);
+        twoNode.setLeftChild(oneNode);
+        twoNode.setRightChild(threeNode);
+        sixNode.setLeftChild(fiveNode);
+        sixNode.setRightChild(sevenNode);
+        oneNode.setLeftChild(new BinaryTreeNode(-1));
+        sevenNode.setLeftChild(new BinaryTreeNode(-11));
+
+      assertEquals(4, ch4.PathsWithSum(rootNode, 6));
+    }
 }

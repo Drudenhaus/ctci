@@ -465,4 +465,41 @@ public class ch4
 
         return RecursiveCheckSubtree(mainTreeNode.left, subtreeNode.left) && RecursiveCheckSubtree(mainTreeNode.right, subtreeNode.right);
     }
+
+    // #12
+    public static int PathsWithSum(BinaryTreeNode rootNode, int targetSum)
+    {
+        /*
+         * Time complexity: O(n^2)
+         * Space complexity: O(h) height of the tree in stack space (logn if balanced else could be up to n hence d)
+         * Brute force solution
+         */
+        if (rootNode == null)
+        {
+            return 0;
+        }
+
+        // level order traversal with one call per node
+        return RecursivePathsWithSum(rootNode, 0, targetSum);
+    }
+
+    public static int RecursivePathsWithSum(BinaryTreeNode rootNode, int runningSum, int targetSum)
+    {
+        if (rootNode == null)
+        {
+            return 0;
+        }
+
+        runningSum += rootNode.data;
+        int found = 0;
+        if (runningSum == targetSum)
+        {
+            found = 1;
+        }
+        return found + 
+                RecursivePathsWithSum(rootNode.left, runningSum, targetSum) + 
+                RecursivePathsWithSum(rootNode.right, runningSum, targetSum) +
+                RecursivePathsWithSum(rootNode.left, 0, targetSum) +
+                RecursivePathsWithSum(rootNode.right, 0, targetSum);
+    }
 }
